@@ -1,71 +1,31 @@
 
-#OpenCart Project Structure
+# OpenCart Selenium Automation Project
 
+## Project Structure
 ![](src/images/image1)
 
-🚀 Tech Stack
-Java 17+
+## Description
+This is a Selenium Automation project for OpenCart UI testing using Java, Maven, and TestNG following Page Object Model (POM).
 
-Selenium WebDriver 4.x
+## Tech Stack
+- Java 17
+- Selenium 4
+- TestNG
+- Maven
+- WebDriverManager
 
-TestNG
+## Project Structure
+- `base`: BaseTest class (browser setup and teardown)
+- `pages`: Page Object Model classes
+- `tests`: Test classes
+- `utils`: Utility classes (to be added)
 
-Maven
+## How to Run
+- Run the `testng.xml` file directly from the IDE or via Maven.
 
-Page Object Model (POM)
-
-WebDriverManager (for browser setup)
-
-✅ Features Automated
-Launch Browser and Navigate to Home Page
-
-Valid Login (if required)
-
-Product Search
-
-Add Product to Cart
-
-Checkout Process
-
-Negative Tests
-
-Cross Browser Testing (to be added later)
-
-Data-Driven Testing with Apache POI
-
-🔧 How to Run
-Clone the repository:
-
-bash
-Copy
-Edit
-git clone <repo-url>
-Install dependencies:
-
-bash
-Copy
-Edit
-mvn clean install
-Run tests using TestNG XML:
-
-bash
-Copy
-Edit
-Right click on testng.xml -> Run
-Or via terminal:
-
-bash
-Copy
-Edit
-mvn test
-📚 Future Enhancements
-Cross Browser Testing
-
-Data-Driven Testing
-
-Action Class Implementation
-
-JavaScript Executor
-
-Handling Alerts, Frames, Windows, Shadow DOM
+## Future Enhancements
+- Negative Testing
+- Action Class and Advanced Selenium Topics
+- Data-Driven Testing
+- Reporting Integration
 
