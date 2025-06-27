@@ -2,11 +2,17 @@ package tests;
 
 import base.BaseTest;
 import jdk.jfr.Description;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.SearchResultsPage;
+
+import java.time.Duration;
 
 public class PositiveScenarios extends BaseTest {
 
@@ -92,7 +98,67 @@ Validate that the cart preview shows the correct product.
         // Assert that the core product URL is present
         Assert.assertTrue(actualProductUrl.contains(expectedProductUrl), "Product detail URL does not match the expected core structure!");
 
-        searchResultsPage.addDeviceToTheCart();
+        searchResultsPage.addProductToTheCart();
+
+    }
+
+    @Description("Add Product to Cart and Validate Cart")
+    @Test
+    public void addProductToCartAndValidate() {
+
+        HomePage homePage = new HomePage(driver);
+        homePage.searchIphone();
+
+        SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
+        searchResultsPage.clickOnProduct();
+
+        searchResultsPage.addProductToTheCart();
+        searchResultsPage.clickOnCart();
+
+        // Validate cart URL
+        String expectedCartUrl = "https://awesomeqa.com/ui/index.php?route=checkout/cart";
+        String actualCartUrl = driver.getCurrentUrl();
+
+        Assert.assertEquals(actualCartUrl, expectedCartUrl, "Cart URL does not match!");
+
+        // Optional: Validate that cart contains the added product (example message verification)
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebElement cartTable = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='content']//table"))
+        );
+
+        Assert.assertTrue(cartTable.getText().contains("iPhone"), "Product not found in cart!");
+    }
+
+    @Description("Navigate to the login page!")
+    @Test
+    public void navigateToTheLoginPage() {
+
+        HomePage homePage = new HomePage(driver);
+        homePage.searchIphone();
+
+        SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
+        searchResultsPage.clickOnProduct();
+
+        searchResultsPage.addProductToTheCart();
+        searchResultsPage.clickOnCart();
+
+        // After reviewing cart, navigate to the login page
+        searchResultsPage.clickOnMyAccount();
+
+        // Validate whether we are on the login page
+        String expectedLoginPageURL = "https://awesomeqa.com/ui/index.php?route=account/login";
+
+        // Assuming clickOnMyAccount internally clicks My Account > Login and returns login page URL
+        String actualLoginPageURL = searchResultsPage.LoginPageValidation();
+
+        // Assertion for URL
+        Assert.assertEquals(actualLoginPageURL, expectedLoginPageURL, "Login page URL did not match!");
+
+        // Additional isDisplayed assertion (optional but recommended)
+        WebElement loginPageHeading = driver.findElement(By.xpath("//h2[text()='New Customer']"));
+        Assert.assertTrue(loginPageHeading.isDisplayed(), "Login Page is not displayed correctly!");
+
     }
 
 
