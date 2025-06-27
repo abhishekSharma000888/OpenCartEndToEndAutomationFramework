@@ -12,12 +12,14 @@ public class HomePage {
         this.driver = driver;
     }
 
-    public void searchProduct(String productName) {
-        WebElement searchBox = driver.findElement(By.name("search"));
-        searchBox.clear();
-        searchBox.sendKeys(productName);
 
-        WebElement searchButton = driver.findElement(By.xpath("//button[@class='btn btn-default btn-lg']"));
+    public void searchIphone() {
+        WebElement searchBox = driver.findElement(By.xpath("//*[@placeholder=\"Search\"]"));
+        searchBox.clear();
+        searchBox.sendKeys("iPhone");
+
+        WebElement searchButton = driver.findElement(By.xpath("//*[@class=\"input-group-btn\"]"));
         searchButton.click();
     }
+
 }
