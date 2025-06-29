@@ -20,7 +20,7 @@ Validation: Validate that it either shows all products or an appropriate message
 
 Validation: Validate the error message "Warning: No match for E-Mail Address and/or Password."
 
-6. Contact Us Form Submission Without Required Fields
+3. Contact Us Form Submission Without Required Fields
 Action: Submit the Contact Us form without filling in required fields.
 
 Validation: Validate that appropriate validation messages are displayed.
