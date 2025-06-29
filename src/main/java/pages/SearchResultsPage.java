@@ -90,6 +90,33 @@ public class SearchResultsPage {
     }
 
 
+    //For Negative Scenarios
+
+    public String invalidProductSearch(){
+
+        WebElement invalidProductSearch = driver.findElement(By.xpath("//*[contains(text(),'There is no product')]"));
+
+        return invalidProductSearch.getText();
+    }
+
+    public void clickOnSubmit() {
+
+        WebDriverWait clickOnWait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        WebElement submitButton = clickOnWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='btn btn-primary']")));
+
+        submitButton.click();
+    }
+
+    public String clickOnSubmitErrorMessage() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(), 'Enquiry must be between 10 and 3000 characters!')]")
+        ));
+
+        return errorMessage.getText();
+    }
+
 
 
 }

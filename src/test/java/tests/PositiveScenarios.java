@@ -3,7 +3,6 @@ package tests;
 import base.BaseTest;
 import jdk.jfr.Description;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -45,13 +44,6 @@ Validate that the page title is "Account Login" or similar.
 Click on Contact Us link from the footer or menu.
 
 Validate that the contact page loads with the correct header.
-
-6. Check Cart from Home Page
-After adding a product to the cart, go to the home page.
-
-Click on the cart button (top right).
-
-Validate that the cart preview shows the correct product.
 
 
      */
@@ -137,18 +129,24 @@ Validate that the cart preview shows the correct product.
         HomePage homePage = new HomePage(driver);
         homePage.searchIphone();
 
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
         SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
         searchResultsPage.clickOnProduct();
 
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         searchResultsPage.addProductToTheCart();
         searchResultsPage.clickOnCart();
 
         // After reviewing cart, navigate to the login page
         searchResultsPage.clickOnMyAccount();
 
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         // Validate whether we are on the login page
         String expectedLoginPageURL = "https://awesomeqa.com/ui/index.php?route=account/login";
 
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         // Assuming clickOnMyAccount internally clicks My Account > Login and returns login page URL
         String actualLoginPageURL = searchResultsPage.LoginPageValidation();
 
@@ -162,6 +160,19 @@ Validate that the cart preview shows the correct product.
     }
 
 
+    @Description("Contact Us Page Navigation")
+    @Test
+    public void validateContactUSLoads() {
 
+        HomePage homePage = new HomePage(driver);
 
+        homePage.contactUs();
+
+        String expectedHeader = "Contact Us";
+
+        String actualHeader = homePage.contactUsHeaderText();
+
+        Assert.assertEquals(actualHeader,expectedHeader," The error message was found mismatched!");
+
+    }
 }
